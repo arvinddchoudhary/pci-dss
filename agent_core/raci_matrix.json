@@ -1,0 +1,14 @@
+{
+  "Cloud_Sec_Team": {
+    "project_key": "SEC",
+    "lead": "Aman"
+  },
+  "Identity_Team": {
+    "project_key": "IAM",
+    "lead": "Siva"
+  },
+  "PCI_Compliance_Team": {
+    "project_key": "COMP",
+    "lead": "Arvind"
+  }
+}

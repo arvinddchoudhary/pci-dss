@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environment
+venv/
+.env
+
+# OS / Editor
+.vscode/
+.idea/
+.DS_Store
+
+# Logs
+*.log
+
+# Vector DB / generated files
+knowledge_base/faiss_db/
+
+output/
+output/
+
+# Secrets
+*.env
