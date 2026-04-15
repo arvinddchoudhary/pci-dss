@@ -5,6 +5,7 @@ class ScanTrigger(BaseModel):
     system_id: str = Field(..., description="The unique ID of the server to check")
     cloud_provider: str = Field(default="aws", description="aws, azure, or on-prem")
     pci_version: str = Field(default="v4.0", description="PCI DSS version to check against")
+    config_override: Optional[str] = Field(None, description="Optional mock config for automated evaluation testing") 
 
 class ComplianceResponse(BaseModel):
     status: str = Field(..., description="Either 'PASS' or 'VIOLATION'")

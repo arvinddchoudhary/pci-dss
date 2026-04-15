@@ -1,0 +1,42 @@
+[
+  {
+    "system_id": "test-db-public", 
+    "cloud_provider": "aws", 
+    "pci_version": "v4.0",
+    "config_override": "RDS postgres-14. PubliclyAccessible: True. StorageEncrypted: False.",
+    "expected_status": "VIOLATION",
+    "description": "Public RDS, no encryption"
+  },
+  {
+    "system_id": "test-db-secure", 
+    "cloud_provider": "aws", 
+    "pci_version": "v4.0",
+    "config_override": "RDS mysql-8. PubliclyAccessible: False. StorageEncrypted: True. KMSKeyId: alias/aws/rds.",
+    "expected_status": "PASS",
+    "description": "Locked down RDS"
+  },
+  {
+    "system_id": "test-iam-nomfa", 
+    "cloud_provider": "aws", 
+    "pci_version": "v4.0",
+    "config_override": "User admin01: MFA disabled. Role: Admin.",
+    "expected_status": "VIOLATION",
+    "description": "Admin with missing MFA"
+  },
+  {
+    "system_id": "test-iam-secure", 
+    "cloud_provider": "aws", 
+    "pci_version": "v4.0",
+    "config_override": "User svc_read: MFA enabled. Password: 14 chars.",
+    "expected_status": "PASS",
+    "description": "Secure IAM User"
+  },
+  {
+    "system_id": "test-db-tls10", 
+    "cloud_provider": "azure", 
+    "pci_version": "v4.0",
+    "config_override": "Azure SQL. TLS 1.0 enabled. PublicNetworkAccess: Disabled.",
+    "expected_status": "VIOLATION",
+    "description": "Deprecated TLS 1.0 active"
+  }
+]

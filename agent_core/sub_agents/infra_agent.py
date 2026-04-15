@@ -4,11 +4,11 @@ import warnings
 warnings.filterwarnings("ignore")
 
 from dotenv import load_dotenv
-from langchain_groq import ChatGroq
 from langchain_community.vectorstores import FAISS
 from langchain_cohere import CohereEmbeddings
 from langchain_core.prompts import ChatPromptTemplate
 from api.schemas import ScanTrigger, ComplianceResponse
+from langchain_openai import ChatOpenAI
 
 load_dotenv()
 
@@ -27,9 +27,8 @@ def analyze_infrastructure(trigger: ScanTrigger, mock_config: str) -> Compliance
     docs = retriever.invoke(query)
     context = "\n".join([d.page_content for d in docs])
     
-    llm = ChatGroq(
-        groq_api_key=os.getenv("GROQ_API_KEY"),
-        model_name="llama-3.1-8b-instant",
+    llm = ChatOpenAI(
+        model="gpt-4o-mini", 
         temperature=0
     )
     
@@ -39,13 +38,13 @@ def analyze_infrastructure(trigger: ScanTrigger, mock_config: str) -> Compliance
     prompt = ChatPromptTemplate.from_messages([
         ("system", """You are an expert PCI DSS auditor. Evaluate the server config against the PCI rules below.
         
-        CRITICAL INSTRUCTIONS:
-        1. Only flag a "VIOLATION" if the config EXPLICITLY contradicts a PCI rule (e.g., publicly accessible, unencrypted).
-        2. Do NOT assume a violation just because a specific control is not mentioned in the config string.
-        3. If the config explicitly shows secure settings (e.g., PubliclyAccessible: False, StorageEncrypted: True), you MUST output a "PASS" status.
-        4. If it is a violation, assign it to the "Cloud_Sec_Team". If it passes, set assigned_to to null.
+        CRITICAL INSTRUCTIONS (OBEY STRICTLY):
+        1. Only flag a "VIOLATION" if the config EXPLICITLY states a failure (e.g., 'PubliclyAccessible: True', 'StorageEncrypted: False').
+        2. If the config states a control is secure (e.g., 'StorageEncrypted: True', 'PubliclyAccessible: False'), you MUST assume it is fully compliant and output a "PASS" status. Do not invent missing context.
+        3. DO NOT assume a violation just because a specific rule detail (like logical access) is not mentioned in the config string.
+        4. If it is a violation, assign it to "Cloud_Sec_Team". If it passes, set assigned_to to null.
         
-        You must return your analysis in the strict JSON schema provided."""),
+        Return your analysis in the strict JSON schema provided."""),
         ("human", "PCI Rules:\n{context}\n\nServer Config:\n{config}\n\nSystem ID: {system_id}")
     ])
     

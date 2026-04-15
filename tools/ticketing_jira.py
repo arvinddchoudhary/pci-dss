@@ -29,7 +29,8 @@ def create_jira_ticket(violation_data: dict) -> str:
             "project": {"key": project_key},
             "summary": summary,
             "description": description,
-            "issuetype": {"name": "Bug"}
+            # FIX 1: Changed "Bug" to "Task" which is universally accepted
+            "issuetype": {"name": "Task"} 
         }
     }
 
@@ -42,6 +43,11 @@ def create_jira_ticket(violation_data: dict) -> str:
         )
         response.raise_for_status()
         return response.json().get("key")
-    except Exception as e:
+        
+    except requests.exceptions.HTTPError as e:
+        print(f"\n--- JIRA CRASH REPORT ---")
         print(f"Jira API Error: {e}")
+        # FIX 2: This will print the EXACT reason Jira rejected the ticket
+        print(f"Jira Detailed Reason: {e.response.text}") 
+        print(f"-------------------------\n")
         return f"{project_key}-ERROR"
