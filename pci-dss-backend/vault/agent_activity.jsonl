@@ -1,0 +1,3 @@
+{"timestamp": "2026-04-16T08:44:53.563998+00:00", "agent_name": "Router", "action": "ROUTE_REQUEST", "system_id": "prod-db-01", "details": "Routing scan for prod-db-01 (provider=aws, pci=v4.0)", "duration_ms": null}
+{"timestamp": "2026-04-16T08:44:53.566521+00:00", "agent_name": "Router", "action": "ESCALATE_TO_LLM", "system_id": "prod-db-01", "details": "Layer 1 passed, invoking Infra Agent (LLM)", "duration_ms": null}
+{"timestamp": "2026-04-16T08:45:31.535204+00:00", "agent_name": "Infra_Agent", "action": "TICKET_CREATED", "system_id": "prod-db-01", "details": "Jira ticket: KAN-15", "duration_ms": null}

@@ -1,0 +1,44 @@
+{
+  "Cloud_Sec_Team": {
+    "project_key": "KAN",
+    "lead": "Aman",
+    "domains": ["Req 1", "Req 2", "Req 6", "Req 11"],
+    "escalation_contact": "aman@company.com",
+    "sla_hours": 24
+  },
+  "Identity_Team": {
+    "project_key": "IAM",
+    "lead": "Siva",
+    "domains": ["Req 7", "Req 8", "Req 9"],
+    "escalation_contact": "siva@company.com",
+    "sla_hours": 24
+  },
+  "PCI_Compliance_Team": {
+    "project_key": "COMP",
+    "lead": "Arvind",
+    "domains": ["Req 12"],
+    "escalation_contact": "arvind@company.com",
+    "sla_hours": 48
+  },
+  "Data_Protection_Team": {
+    "project_key": "DPT",
+    "lead": "Shloka",
+    "domains": ["Req 3", "Req 4"],
+    "escalation_contact": "shloka@company.com",
+    "sla_hours": 24
+  },
+  "Endpoint_Security_Team": {
+    "project_key": "EPT",
+    "lead": "Sanjana",
+    "domains": ["Req 5"],
+    "escalation_contact": "sanjana@company.com",
+    "sla_hours": 24
+  },
+  "SOC_Team": {
+    "project_key": "SOC",
+    "lead": "Ravi",
+    "domains": ["Req 10"],
+    "escalation_contact": "soc@company.com",
+    "sla_hours": 12
+  }
+}

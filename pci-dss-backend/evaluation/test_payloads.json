@@ -1,0 +1,162 @@
+[
+  {
+    "system_id": "test-db-public",
+    "cloud_provider": "aws",
+    "pci_version": "v4.0",
+    "config_override": "RDS postgres-14. PubliclyAccessible: True. StorageEncrypted: False.",
+    "expected_status": "VIOLATION",
+    "description": "Public RDS, no encryption — should hit Req 3.4.1 or Req 1.3.2"
+  },
+  {
+    "system_id": "test-db-secure",
+    "cloud_provider": "aws",
+    "pci_version": "v4.0",
+    "config_override": "RDS mysql-8. PubliclyAccessible: False. StorageEncrypted: True. KMSKeyId: alias/aws/rds.",
+    "expected_status": "PASS",
+    "description": "Locked down RDS — all controls present"
+  },
+  {
+    "system_id": "test-iam-nomfa",
+    "cloud_provider": "aws",
+    "pci_version": "v4.0",
+    "config_override": "User admin01: MFA disabled. Role: Admin.",
+    "expected_status": "VIOLATION",
+    "description": "Admin with missing MFA — Req 8.4.2"
+  },
+  {
+    "system_id": "test-iam-secure",
+    "cloud_provider": "aws",
+    "pci_version": "v4.0",
+    "config_override": "User svc_read: MFA enabled. Password: 14 chars.",
+    "expected_status": "PASS",
+    "description": "Secure IAM User — all controls present"
+  },
+  {
+    "system_id": "test-db-tls10",
+    "cloud_provider": "azure",
+    "pci_version": "v4.0",
+    "config_override": "Azure SQL. TLS 1.0 enabled. PublicNetworkAccess: Disabled.",
+    "expected_status": "VIOLATION",
+    "description": "Deprecated TLS 1.0 active — Req 4.2.1"
+  },
+  {
+    "system_id": "test-db-open-internet",
+    "cloud_provider": "aws",
+    "pci_version": "v4.0",
+    "config_override": "RDS postgres-15. PubliclyAccessible: True. StorageEncrypted: True. VpcSecurityGroups: 0.0.0.0/0 allowed on port 5432.",
+    "expected_status": "VIOLATION",
+    "description": "Public internet access via security group — Req 1.3.2"
+  },
+  {
+    "system_id": "test-iam-inactive",
+    "cloud_provider": "aws",
+    "pci_version": "v4.0",
+    "config_override": "User old_admin: MFA enabled. inactive_account. Last login: 120 days. Role: Admin.",
+    "expected_status": "VIOLATION",
+    "description": "Inactive admin account not disabled — Req 8.2.6"
+  },
+  {
+    "system_id": "test-net-open-firewall",
+    "cloud_provider": "aws",
+    "pci_version": "v4.0",
+    "config_override": "VPC: vpc-test. Inbound: 0.0.0.0/0 on port 443. firewall: disabled. vpc_flow_logs: disabled.",
+    "expected_status": "VIOLATION",
+    "description": "Firewall disabled with public access — Req 1.2.1"
+  },
+  {
+    "system_id": "test-net-secure",
+    "cloud_provider": "aws",
+    "pci_version": "v4.0",
+    "config_override": "VPC: vpc-secure. Inbound: 10.0.0.0/8. Outbound: 10.0.0.0/8. firewall: enabled. vpc_flow_logs: enabled.",
+    "expected_status": "PASS",
+    "description": "Secure network config — all controls pass"
+  },
+  {
+    "system_id": "test-encrypt-legacy",
+    "cloud_provider": "aws",
+    "pci_version": "v4.0",
+    "config_override": "SSL 3.0 enabled. TLS 1.0 enabled. certificate_expired. encryption_in_transit: disabled.",
+    "expected_status": "VIOLATION",
+    "description": "Legacy SSL/TLS with expired cert — Req 4.2.1"
+  },
+  {
+    "system_id": "test-encrypt-secure",
+    "cloud_provider": "aws",
+    "pci_version": "v4.0",
+    "config_override": "TLS 1.2 only. TLS 1.3 enabled. Certificate: valid until 2026-06-15. encryption_in_transit: enabled.",
+    "expected_status": "PASS",
+    "description": "Modern TLS config — fully compliant"
+  },
+  {
+    "system_id": "test-db-noencryption",
+    "cloud_provider": "aws",
+    "pci_version": "v4.0",
+    "config_override": "RDS mysql-8. PubliclyAccessible: False. encryption_at_rest: disabled. No KMS key.",
+    "expected_status": "VIOLATION",
+    "description": "No encryption at rest — Req 3.4.1"
+  },
+  {
+    "system_id": "test-db-defaultpw",
+    "cloud_provider": "aws",
+    "pci_version": "v4.0",
+    "config_override": "RDS postgres-14. PubliclyAccessible: False. StorageEncrypted: True. default_password in use.",
+    "expected_status": "VIOLATION",
+    "description": "Default password still in use — Req 2.2.2"
+  },
+  {
+    "system_id": "test-iam-sharedaccount",
+    "cloud_provider": "aws",
+    "pci_version": "v4.0",
+    "config_override": "User team_shared: MFA enabled. shared_accounts. Role: Admin. Password: 12 chars.",
+    "expected_status": "VIOLATION",
+    "description": "Shared generic account — Req 7.2.6"
+  },
+  {
+    "system_id": "test-db-logging-off",
+    "cloud_provider": "aws",
+    "pci_version": "v4.0",
+    "config_override": "RDS postgres-15. PubliclyAccessible: False. StorageEncrypted: True. logging: disabled. audit_log: disabled.",
+    "expected_status": "VIOLATION",
+    "description": "Audit logging disabled — Req 10.2.1"
+  },
+  {
+    "system_id": "test-iam-noav",
+    "cloud_provider": "aws",
+    "pci_version": "v4.0",
+    "config_override": "User svc_app: MFA enabled. antivirus: disabled. edr: disabled. Role: AppService.",
+    "expected_status": "VIOLATION",
+    "description": "Anti-malware disabled — Req 5.3.1"
+  },
+  {
+    "system_id": "test-db-patchoverdue",
+    "cloud_provider": "aws",
+    "pci_version": "v4.0",
+    "config_override": "RDS postgres-13. PubliclyAccessible: False. StorageEncrypted: True. critical_unpatched. Patch status: 90 days overdue.",
+    "expected_status": "VIOLATION",
+    "description": "Critical patches not applied — Req 6.3.3"
+  },
+  {
+    "system_id": "test-db-panplaintext",
+    "cloud_provider": "aws",
+    "pci_version": "v4.0",
+    "config_override": "RDS mysql-8. PubliclyAccessible: False. StorageEncrypted: True. pan_stored_plaintext. masking: none.",
+    "expected_status": "VIOLATION",
+    "description": "PAN in plaintext with no masking — Req 3.5.1"
+  },
+  {
+    "system_id": "test-net-noids",
+    "cloud_provider": "aws",
+    "pci_version": "v4.0",
+    "config_override": "VPC: vpc-prod. firewall: enabled. ids: disabled. file_integrity: disabled. pentest: overdue.",
+    "expected_status": "VIOLATION",
+    "description": "IDS disabled and pentest overdue — Req 11.5.1"
+  },
+  {
+    "system_id": "test-db-v321-tls",
+    "cloud_provider": "aws",
+    "pci_version": "v3.2.1",
+    "config_override": "MySQL 5.7. TLS 1.0 enabled. StorageEncrypted: True.",
+    "expected_status": "VIOLATION",
+    "description": "PCI v3.2.1 test — TLS 1.0 deprecated under Req 2.3"
+  }
+]
