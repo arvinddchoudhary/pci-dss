@@ -34,7 +34,7 @@ def analyze_infrastructure(trigger: ScanTrigger, mock_config: str) -> Compliance
     
     structured_llm = llm.with_structured_output(ComplianceResponse)
     
-    
+    #prompt 
     prompt = ChatPromptTemplate.from_messages([
         ("system", """You are an expert PCI DSS auditor. Evaluate the server config against the PCI rules below.
         
