@@ -4,7 +4,7 @@ import { runSingleScan, runBatchScan } from '../services/api';
 import PageHeader from '../components/PageHeader';
 import StatusBadge from '../components/StatusBadge';
 import LoadingSpinner from '../components/LoadingSpinner';
-
+// Scans
 const QUICK_SCANS = [
   { system_id: 'prod-db-01', cloud_provider: 'aws', pci_version: 'v4.0', label: 'Production DB (Known Violation)' },
   { system_id: 'secure-db-02', cloud_provider: 'aws', pci_version: 'v4.0', label: 'Secure DB (Should Pass)' },

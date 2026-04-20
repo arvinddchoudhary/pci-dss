@@ -11,7 +11,7 @@ from langchain_community.vectorstores import FAISS
 from langchain_cohere import CohereEmbeddings
 
 load_dotenv()
-
+#DOCS AND FAISS_DB
 DOCS_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "docs"))
 FAISS_DB_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "faiss_db"))
 
