@@ -74,6 +74,7 @@ export default function DashboardPage() {
         <StatCard icon={CheckCircle} label="GREEN Status" value={ragCounts.GREEN} subtext="Compliant requirements" color="green" />
       </div>
 
+# charts
       {/* Charts Row */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
         {/* Bar Chart */}
